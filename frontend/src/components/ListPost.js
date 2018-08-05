@@ -1,12 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Col, Row } from 'react-easy-grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Chip from 'material-ui/Chip';
+import { Col } from 'react-easy-grid';
 import ItemPost from './ItemPost'
 
-import moment from 'moment';
 import { fetchPosts } from '../actions'
 
 import './App.css'

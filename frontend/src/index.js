@@ -6,6 +6,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
+
 
 import thunk from 'redux-thunk';
 
@@ -36,14 +38,14 @@ const store = createStore(
 const Root = () => (
   <Provider store={store}>
     <MuiThemeProvider>
-      <App />
+      <BrowserRouter><App/></BrowserRouter>
     </MuiThemeProvider>
     </Provider>
   );
 
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider>
-    <App />
+  <BrowserRouter><App /></BrowserRouter>
   </MuiThemeProvider>
   </Provider>, document.getElementById('root'));
 registerServiceWorker();

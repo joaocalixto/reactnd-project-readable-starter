@@ -3,7 +3,8 @@ import { combineReducers } from 'redux';
 
 import {
     FETCH_CATEGORIES,
-    FETCH_POSTS
+    FETCH_POSTS,
+    ADD_POST
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -23,14 +24,18 @@ function categories (state = {}, action) {
 
 
 function posts (state = {}, action){
-
+    console.log("state post", state);
     switch (action.type) {
         case FETCH_POSTS :
             // getPosts
-        console.log("state post", state);
         return {
             ...state,
             posts:action.posts 
+        }
+        case ADD_POST:
+        return {
+            ...state,
+            posts: state.posts.push(action.post)
         }
         default :
             return state

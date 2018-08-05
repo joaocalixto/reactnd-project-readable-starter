@@ -66,6 +66,8 @@ function getAll (token) {
 
 function add (token, post) {
   return new Promise((res) => {
+
+    console.log("post from client "+ JSON.stringify(post));
     let posts = getData(token)
 
     posts[post.id] = {
@@ -79,7 +81,7 @@ function add (token, post) {
       deleted: false,
       commentCount: 0
     }
-
+    console.log("response "+ JSON.stringify(posts[post.id]));
     res(posts[post.id])
   })
 }

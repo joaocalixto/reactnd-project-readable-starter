@@ -22,15 +22,21 @@ export const getAll = () =>
     .then(res => res.json())
     .then(data => data)
 
-export const update = (book, shelf) =>
-  fetch(`${api}/books/${book.id}`, {
-    method: 'PUT',
+export const add = (post) =>
+
+  fetch(`${api}/posts`, {
+    method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ shelf })
-  }).then(res => res.json())
+    body: JSON.stringify(post)
+  })
+  .then(res => {
+    console.log("retorno setv "+ JSON.stringify(res));
+    return res
+  })
+  .then(res => res.json())
 
 export const search = (query) =>
   fetch(`${api}/search`, {
