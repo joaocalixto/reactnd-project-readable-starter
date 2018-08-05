@@ -7,6 +7,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux';
 
+import thunk from 'redux-thunk';
+
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import MyAwesomeReactComponent from './MyAwesomeReactComponent';
@@ -19,13 +21,15 @@ const logger = store => next => action => {
   console.groupEnd(action.type)
   return result
 }
+
+
 const composeEnhancers =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 
 const store = createStore(
   reducer,
   composeEnhancers(
-      applyMiddleware(logger)
+      applyMiddleware(logger, thunk)
   )
 )
 
@@ -37,5 +41,9 @@ const Root = () => (
     </Provider>
   );
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+  <MuiThemeProvider>
+    <App />
+  </MuiThemeProvider>
+  </Provider>, document.getElementById('root'));
 registerServiceWorker();
