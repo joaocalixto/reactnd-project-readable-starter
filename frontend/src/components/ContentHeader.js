@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import './App.css'
-import { Col, Row, Grid } from 'react-easy-grid';
+import { Col, Row } from 'react-easy-grid';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class ContentHeader extends Component{
-   
 
     render(){
         return (

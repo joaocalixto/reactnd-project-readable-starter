@@ -3,11 +3,7 @@ import { connect } from 'react-redux'
 import CategoriesBar from './CategoriesBar';
 import ListPost from './ListPost';
 import ContentHeader from './ContentHeader';
-import AppHeader from './AppHeader';
 import { fetchPosts, fetchTodos } from '../actions'
-import PostForm from './PostForm'
-
-import {Route, Switch} from 'react-router-dom';
 
 import './App.css';
 
@@ -19,16 +15,14 @@ class Home extends Component {
     return (
 
       <div>
-       
-              <ContentHeader/>
-              
-              {/* List Categoria  */}
-              <CategoriesBar/>
+        <ContentHeader/>
+        
+        {/* List Categoria  */}
+        <CategoriesBar/>
 
-              {/* List Posts  */}
-              <ListPost/>
-            
-        </div>
+        {/* List Posts  */}
+        <ListPost/>
+      </div>
         
     );
   }

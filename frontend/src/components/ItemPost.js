@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Chip from 'material-ui/Chip';
 import { Col, Row } from 'react-easy-grid';
+import { withRouter } from 'react-router-dom'
 
 import moment from 'moment';
 
@@ -36,10 +37,18 @@ class ItemPost extends Component{
         })
     }
 
-    render(){
+    navigate = (post) => {
+      console.log("post navigate", post);
+      this.props.history.push(`/post/${post.id}`)
+      //this.props.history.push(`/post`)
+  }
+
+
+
+  render(){
         const {post} = this.props
         return (
-            <Paper elevation={1} onClick={this.handleClick} style={{
+            <Paper elevation={1} onClick={() => {this.navigate(post)} }style={{
                 marginTop:30, padding: 20, 
                 backgroundColor:this.state.paperColor, 
                 cursor:this.state.paperCursor }} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} >
@@ -82,4 +91,4 @@ class ItemPost extends Component{
     }
 }
 
-export default ItemPost
+export default withRouter(ItemPost)

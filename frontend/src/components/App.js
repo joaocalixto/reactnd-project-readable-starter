@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import CategoriesBar from './CategoriesBar';
-import ListPost from './ListPost';
-import ContentHeader from './ContentHeader';
 import AppHeader from './AppHeader';
 import { fetchPosts, fetchTodos } from '../actions'
 import PostForm from './PostForm'
@@ -22,11 +19,13 @@ class App extends Component {
         <AppHeader/>
           <div className="Content">
             <Switch>
-              <Route path='/new' render={() => (
+              <Route exact path='/post' render={() => (
                 <PostForm/>
               )}/>
 
-              <Route path='/' render={() => (
+              <Route path='/post/:id' component={PostForm}/>
+
+              <Route exact path='/' render={() => (
                 <Home/>
               )}/>
             </Switch>
@@ -50,8 +49,6 @@ function mapStateToProps ({ categories, posts }) {
   }
   
 }
-
-
 // export default App;
 export default connect(
   mapStateToProps,

@@ -35,17 +35,9 @@ const store = createStore(
   )
 )
 
-const Root = () => (
-  <Provider store={store}>
-    <MuiThemeProvider>
-      <BrowserRouter><App/></BrowserRouter>
-    </MuiThemeProvider>
-    </Provider>
-  );
-
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider>
-  <BrowserRouter><App /></BrowserRouter>
+  <BrowserRouter forceRefresh={true} ><App /></BrowserRouter>
   </MuiThemeProvider>
   </Provider>, document.getElementById('root'));
 registerServiceWorker();
