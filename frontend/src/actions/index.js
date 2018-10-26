@@ -4,7 +4,16 @@ import * as PostsAPI from '../utils/PostsAPI'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
+export const SORT_POST = 'SORT_POST'
 
+
+
+export function sortPosts (sortBy) {
+    return {
+        type: SORT_POST,
+        sortBy
+    }
+}
 
 export function fetchCategories (todos) {
     return {
@@ -26,6 +35,10 @@ export function addPost (post) {
         post
     }
 }
+export const sort = (sortby) => dispatch => (
+    dispatch(sortPosts(sortby))
+);
+
 
 export const fetchTodos = () => dispatch => (
     CategoriesAPI

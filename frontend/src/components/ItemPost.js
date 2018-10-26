@@ -4,6 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import Chip from 'material-ui/Chip';
 import { Col, Row } from 'react-easy-grid';
 import { withRouter } from 'react-router-dom'
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 import moment from 'moment';
 
@@ -17,7 +22,8 @@ class ItemPost extends Component{
         this.state = {
           open: false,
           paperColor: "white",
-          paperCursor: "auto"
+          paperCursor: "auto",
+          votes: false
         };
       }
 
@@ -39,28 +45,41 @@ class ItemPost extends Component{
 
     navigate = (post) => {
       console.log("post navigate", post);
-      this.props.history.push(`/post/${post.id}`)
+      if(!this.state.votes){
+        debugger
+        this.props.history.push(`/post/${post.id}`)
+      }
       //this.props.history.push(`/post`)
   }
+  test = () => {
+    this.setState({
+      votes: true
+    })
+    console.log("asdasd");
+}
 
 
 
   render(){
         const {post} = this.props
         return (
-            <Paper elevation={1} onClick={() => {this.navigate(post)} }style={{
+            <Paper elevation={1}  style={{
                 marginTop:30, padding: 20, 
-                backgroundColor:this.state.paperColor, 
-                cursor:this.state.paperCursor }} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} >
-                <Row size={1}>
+                
+                }} >
+                <Row size={1} >
                   <Col size={10} >
-                    <Typography variant="headline" component="h3" style={{color:"#6a737c"}}>
+                    <IconButton aria-label="upvote" onClick={() => {this.test()} }>
+                      <KeyboardArrowUp/>
+                    </IconButton >
+                    <Typography variant="headline" component="h3" style={{color:"#6a737c", marginLeft:18}}>
                     {post.voteScore}
                     </Typography>
-                    <Typography component="p" style={{textAlignVertical: "center"}}>
-                      votes
-                    </Typography>
+                    <IconButton aria-label="downvote">
+                      <KeyboardArrowDown/>
+                    </IconButton >
                   </Col>
+                  <Row size={100} onClick={() => {this.navigate(post)} } onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} style={{backgroundColor:this.state.paperColor, cursor:this.state.paperCursor }}>
                   <Col size={95}>
                     <Typography variant="headline" component="h3">
                       {post.title}
@@ -72,19 +91,21 @@ class ItemPost extends Component{
                               React
                     </Chip>
                   </Col>
-                </Row>
-                <Row size={1}>
-                  <Col style={ { marginRight:"0px" }}>
+                  <Col size={1}>
+                    <Row size={90}>
+                    </Row>
+                    <div style={{backgroundColor:"#E1ECF4", padding:20}}>
                   <Typography component="p">
-                  {(
-                    moment(post.timestamp).format('DD/MM/YYYY')
-                  )}
-                  </Typography>
-                  <Typography component="p">
-                    {post.author}
-                  </Typography>
+                    {(
+                      moment(post.timestamp).format('DD/MM/YYYY')
+                    )}
+                    </Typography>
+                    <Typography component="p">
+                      {post.author}
+                    </Typography>
+                    </div>
                   </Col>
-                  
+                  </Row>
                 </Row>
               </Paper>
         )

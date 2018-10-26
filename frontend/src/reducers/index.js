@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-
+import sortBy from 'sort-by'
 
 import {
     FETCH_CATEGORIES,
     FETCH_POSTS,
-    ADD_POST
+    ADD_POST,
+    SORT_POST
 } from '../actions'
 
 function categories (state = {}, action) {
@@ -36,6 +37,12 @@ function posts (state = {}, action){
         return {
             ...state,
             posts: state.posts.push(action.post)
+        }
+        case SORT_POST:
+        return {
+            ...state,
+            posts: state.posts.sort(sortBy(action.sortBy)),
+            sortBy: action.sortBy
         }
         default :
             return state

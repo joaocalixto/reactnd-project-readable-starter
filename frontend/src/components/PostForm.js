@@ -17,7 +17,7 @@ class PostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          post: null
+          post: {}
         };
       }
 
@@ -58,12 +58,14 @@ render() {
      console.log("id render", this.props.match.params.id);
     return (
         <Row>
+          
             <Col size={1}>
                     <h2>Create a Post</h2>
                     <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
 
                     <Row style={{margin:0}}>
-                            <TextField style={{width:300}}
+                    
+                        <TextField style={{width:300}}
                             inputRef={el => this.title = el} 
                             id="title"
                             label="Title"
