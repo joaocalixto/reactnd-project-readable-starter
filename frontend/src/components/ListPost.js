@@ -9,6 +9,7 @@ import './App.css'
 
 class ListPost extends Component{
 
+    
     componentDidMount(){
         this.props.loadPost()
     }
@@ -19,8 +20,8 @@ class ListPost extends Component{
     render(){
         return (
             <Col size={1}>
-            {this.props.posts.posts && (
-                this.props.posts.posts.map(post => (
+            {this.props.posts.showPosts && (
+                this.props.posts.showPosts.map(post => (
                     <ItemPost key={post.id} post={post}/>
                 ))
             )}

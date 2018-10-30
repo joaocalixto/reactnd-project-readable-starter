@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import { deletePost } from '../actions'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Chip from 'material-ui/Chip';
 import { Col, Row } from 'react-easy-grid';
 import { withRouter } from 'react-router-dom'
-import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import IconButton from '@material-ui/core/IconButton';
 
 
 
+import VotePost from './VotePost';
 import moment from 'moment';
 
 import './App.css'
@@ -23,7 +23,6 @@ class ItemPost extends Component{
           open: false,
           paperColor: "white",
           paperCursor: "auto",
-          votes: false
         };
       }
 
@@ -45,54 +44,51 @@ class ItemPost extends Component{
 
     navigate = (post) => {
       console.log("post navigate", post);
-      if(!this.state.votes){
-        debugger
-        this.props.history.push(`/post/${post.id}`)
-      }
-      //this.props.history.push(`/post`)
-  }
-  test = () => {
-    this.setState({
-      votes: true
-    })
-    console.log("asdasd");
-}
-
-
-
+      this.props.history.push(`/post/${post.id}`)
+    }
+    delete = (post) => {
+      this.props.delete(post)
+    }
   render(){
         const {post} = this.props
         return (
-            <Paper elevation={1}  style={{
+            <Paper elevation={1} style={{
                 marginTop:30, padding: 20, 
                 
                 }} >
                 <Row size={1} >
                   <Col size={10} >
-                    <IconButton aria-label="upvote" onClick={() => {this.test()} }>
-                      <KeyboardArrowUp/>
-                    </IconButton >
-                    <Typography variant="headline" component="h3" style={{color:"#6a737c", marginLeft:18}}>
-                    {post.voteScore}
-                    </Typography>
-                    <IconButton aria-label="downvote">
-                      <KeyboardArrowDown/>
-                    </IconButton >
+                    <VotePost post={post}/>
                   </Col>
-                  <Row size={100} onClick={() => {this.navigate(post)} } onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} style={{backgroundColor:this.state.paperColor, cursor:this.state.paperCursor }}>
-                  <Col size={95}>
-                    <Typography variant="headline" component="h3">
-                      {post.title}
-                    </Typography>
-                    <Typography component="p">
-                    {post.body}
-                    </Typography>
-                    <Chip style={ { margin: "12px", marginRight:"0px" }}>
-                              React
-                    </Chip>
-                  </Col>
+                  <Row size={100} onClick={() => {this.navigate(post)} } onMouseEnter={this.mouseEnter} 
+                  onMouseLeave={this.mouseLeave} 
+                  style={{backgroundColor:this.state.paperColor, 
+                  cursor:this.state.paperCursor, marginRight:20 }}>
+                    <Col size={95}>
+                      <Typography variant="headline" component="h3">
+                        {post.title}
+                      </Typography>
+                      <Typography component="p">
+                      {post.body}
+                      </Typography>
+                      <Chip style={ { margin: "12px", marginRight:"0px" }}>
+                                {post.category}
+                      </Chip>
+                    </Col>
+                  
+                  </Row>
+                  <Row size={10}>
                   <Col size={1}>
                     <Row size={90}>
+                      {post.deleted == false ? (
+                        <a href="#" onClick={() => {this.delete(post)} }> Delete </a>
+                      )
+                      :
+                      (
+                        "Deleted :("
+                      )
+                    }
+                      
                     </Row>
                     <div style={{backgroundColor:"#E1ECF4", padding:20}}>
                   <Typography component="p">
@@ -112,4 +108,22 @@ class ItemPost extends Component{
     }
 }
 
-export default withRouter(ItemPost)
+function mapDispatchToProps (dispatch) {
+  return {
+    delete: (post) => dispatch(deletePost(post)),
+  }
+}
+
+function mapStateToProps ({ categories, posts }) {
+    return {
+        posts
+    }
+}
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ItemPost))
+
+// export default VotePost
+
+//export default withRouter(ItemPost)

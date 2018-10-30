@@ -22,8 +22,38 @@ export const getAll = () =>
     .then(res => res.json())
     .then(data => data)
 
-export const add = (post) =>
+export const vote = (post, type) =>
 
+    fetch(`${api}/posts/${post.id}`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({option: type})
+    })
+    .then(res => {
+      console.log("retorno setv "+ JSON.stringify(res));
+      return res
+    })
+    .then(res => res.json())
+
+export const deletePost = (post) =>
+  fetch(`${api}/posts/${post.id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  })
+  .then(res => {
+    console.log("retorno setv "+ JSON.stringify(res));
+    return res
+  })
+  .then(res => res.json())
+
+export const add = (post) =>
   fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
