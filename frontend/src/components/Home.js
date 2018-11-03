@@ -4,6 +4,8 @@ import CategoriesBar from './CategoriesBar';
 import ListPost from './ListPost';
 import ContentHeader from './ContentHeader';
 import { fetchPosts, fetchTodos } from '../actions'
+import { withRouter } from 'react-router-dom'
+
 
 import './App.css';
 
@@ -11,17 +13,17 @@ import './App.css';
 class Home extends Component {
 
   render() {
-    console.log("props", this.props);
+    const {category} = this.props.match.params;
     return (
 
       <div>
         <ContentHeader/>
         
         {/* List Categoria  */}
-        <CategoriesBar/>
+        <CategoriesBar category={category}/>
 
         {/* List Posts  */}
-        <ListPost/>
+        <ListPost category={category}/>
       </div>
         
     );
@@ -45,7 +47,7 @@ function mapStateToProps ({ categories, posts }) {
 
 
 // export default App;
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Home))

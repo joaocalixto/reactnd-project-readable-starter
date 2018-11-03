@@ -17,6 +17,7 @@ class VotePost extends Component{
 
     render(){
         const {post} = this.props
+        
         return (
             <div>
                 <IconButton aria-label="upvote" onClick={() => {this.vote(post, "upVote")} }>

@@ -11,15 +11,13 @@ import {
     FILTER_ADD_CATEGORY_POST,
     FILTER_REMOVE_CATEGORY_POST,
     FILTER_ADD_CATEGORY,
-    FILTER_REMOVE_CATEGORY
+    FILTER_REMOVE_CATEGORY,
+    VOTE_COMMENT
 } from '../actions'
 
 function categories (state = {}, action) {
-    console.log("state cat", state);
     switch (action.type) {
         case FETCH_CATEGORIES :
-            // getCategories
-            console.log("state cat", state);
         return {
             ...state,
             categories:action.todos.categories.map(category => (
@@ -55,9 +53,17 @@ function categories (state = {}, action) {
     }
 }
 
+function comments (state = {}, action) {
+    switch (action.type) {
+        
+        default :
+            return state
+    }
+}
+
+
 
 function posts (state = {}, action){
-    console.log("state post", state);
     let showPosts
     switch (action.type) {
         case FETCH_POSTS :
@@ -82,6 +88,10 @@ function posts (state = {}, action){
         return {
             ...state,
             posts: state.posts.map(post => {
+                if(post.id === action.post.id) return action.post
+                else return post
+            }),
+            showPosts: state.showPosts.map(post => {
                 if(post.id === action.post.id) return action.post
                 else return post
             })
@@ -133,5 +143,6 @@ function removeCatPost(state, name){
 
 export default combineReducers({
     categories,
-    posts
+    posts,
+    comments
 })

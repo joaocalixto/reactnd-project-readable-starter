@@ -11,13 +11,19 @@ class ListPost extends Component{
 
     
     componentDidMount(){
-        this.props.loadPost()
+        
+        const category = this.props.category;
+        this.props.loadPost(category)
     }
+
+   
+
     handleClick = () => {
         console.log('Teste')
     }
 
     render(){
+        console.log("posss", this.props.posts);
         return (
             <Col size={1}>
             {this.props.posts.showPosts && (
@@ -32,13 +38,14 @@ class ListPost extends Component{
 
 function mapDispatchToProps (dispatch) {
     return {
-        loadPost: () => dispatch(fetchPosts({}))
+        loadPost: (category) => dispatch(fetchPosts(category)),
     }
 }
 
 function mapStateToProps ({ categories, posts }) {
     return {
-        posts
+        posts,
+        
     }
 }
 

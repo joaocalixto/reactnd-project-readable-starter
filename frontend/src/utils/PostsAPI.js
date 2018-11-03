@@ -17,10 +17,14 @@ export const get = (bookId) =>
     .then(res => res.json())
     .then(data => data.book)
 
-export const getAll = () =>
-  fetch(`${api}/posts`, { headers })
+export const getAll = (category) => {
+
+  let URL =  category ? `${api}/${category}/posts` : `${api}/posts`
+
+  return fetch(URL, { headers })
     .then(res => res.json())
     .then(data => data)
+}
 
 export const vote = (post, type) =>
 

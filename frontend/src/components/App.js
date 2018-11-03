@@ -13,7 +13,6 @@ import './App.css';
 class App extends Component {
 
   render() {
-    console.log("props", this.props);
     return (
       <div>
         <AppHeader/>
@@ -26,6 +25,10 @@ class App extends Component {
               <Route path='/post/:id' component={PostForm}/>
 
               <Route exact path='/' render={() => (
+                <Home/>
+              )}/>
+
+              <Route exact path='/:category' render={() => (
                 <Home/>
               )}/>
             </Switch>

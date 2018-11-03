@@ -1,6 +1,7 @@
 
 import * as CategoriesAPI from '../utils/CategoriesAPI'
 import * as PostsAPI from '../utils/PostsAPI'
+import * as CommentsAPI from '../utils/CommentsAPI'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -13,6 +14,7 @@ export const FILTER_ADD_CATEGORY = 'FILTER_ADD_CATEGORY'
 
 export const FILTER_REMOVE_CATEGORY_POST = 'FILTER_REMOVE_CATEGORY_POST'
 export const FILTER_REMOVE_CATEGORY = 'FILTER_REMOVE_CATEGORY'
+export const VOTE_COMMENT = 'VOTE_COMMENT'
 
 export function filterRemoveCategoryPosts (name) {
     return {
@@ -50,6 +52,13 @@ export function votePosts (post) {
     return {
         type: VOTE_POST,
         post
+    }
+}
+
+export function voteComments (comment) {
+    return {
+        type: VOTE_COMMENT,
+        comment
     }
 }
 
@@ -98,6 +107,7 @@ export const filterRemoveCategoryPost = (name) => {
     } 
 };
 
+
 export const votePost = (post,type) => dispatch => (
     PostsAPI
         .vote(post, type)
@@ -109,9 +119,9 @@ export const fetchTodos = () => dispatch => (
         .getAll()
         .then(todos => dispatch(fetchCategories(todos)))
   );
-export const fetchPosts = () => dispatch => (
+export const fetchPosts = (category) => dispatch => (
     PostsAPI
-        .getAll()
+        .getAll(category)
         .then(posts => dispatch(getAll(posts)))
 );
 export const addNewPost = (post) => dispatch => (
@@ -124,3 +134,8 @@ export const deletePost = (post) => dispatch => (
         .deletePost(post)
         .then(newPost => dispatch(deletePosts(newPost)))
 );
+export const voteComment = (comment, type) => dispatch => (
+    CommentsAPI
+        .vote(comment, type)
+        .then(comment => dispatch(voteComments(comment)))
+  );
